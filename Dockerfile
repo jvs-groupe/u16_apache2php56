@@ -56,7 +56,8 @@ RUN rm /etc/apache2/sites-enabled/000-default.conf
 
 ## Ajout des fichiers virtualhost
 RUN mkdir -p /config
-ADD ./docker/*  /config/
+RUN mkdir -p /config/apache2
+ADD ./docker/apache2/*  /config/apache2/
 RUN cp /config/apache2/000-docker.conf /etc/apache2/sites-available
 RUN ln -sf /etc/apache2/sites-available/000-docker.conf /etc/apache2/sites-enabled/000-docker.conf
 RUN mv /etc/apache2/apache2.conf /etc/apache2/apache2.conf.orig 
