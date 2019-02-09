@@ -55,6 +55,10 @@ ENV MAILHOGSERVER mailhog
 RUN rm /etc/apache2/sites-enabled/000-default.conf
 
 ## Ajout des fichiers virtualhost
+RUN mkdir -p /config
+ADD ./docker/*  /config/
+RUN cp /config/apache2/000-docker.conf /etc/apache2/sites-available
+RUN ln -sf /etc/apache2/sites-available/000-docker.conf /etc/apache2/sites-enabled/000-docker.conf
 RUN mv /etc/apache2/apache2.conf /etc/apache2/apache2.conf.orig 
 RUN sed -e 's/# Global configuration/# Global configuration\nServerName localhost/g' < /etc/apache2/apache2.conf.orig > /etc/apache2/apache2.conf
 
